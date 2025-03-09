@@ -6,3 +6,5 @@ Just automatizing fun stuff with Gemini
 *  go get github.com/google/generative-ai-go
 
 go run geminifun/main.go
+
+go mod tidy
