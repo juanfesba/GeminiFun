@@ -67,7 +67,7 @@ func main() {
 	var year string
 	var characteristc string
 
-	maxRows := 30
+	maxRows := 5
 
 	for i, row := range rows {
 		if i == 0 {
@@ -104,6 +104,13 @@ func main() {
 			log.Fatal(err)
 		}
 		f.SetCellStr("FamousBooks", "G"+fmt.Sprint(i+1), strings.TrimSpace(singleResponse(resp)))
+		time.Sleep(200 * time.Millisecond)
+
+		resp, err = model.GenerateContent(ctx, genai.Text("I want you to answer me with just a short synopis of a book. The book is written by "+author+" and the title (in spanish) is "+title+". The book is written in "+language+" and the country of origin is "+country+". The book was published around "+year+". The book is related to the following characteristic: "+characteristc+"."))
+		if err != nil {
+			log.Fatal(err)
+		}
+		f.SetCellStr("FamousBooks", "H"+fmt.Sprint(i+1), strings.TrimSpace(singleResponse(resp)))
 		time.Sleep(200 * time.Millisecond)
 	}
 	if err := f.Save(); err != nil {
